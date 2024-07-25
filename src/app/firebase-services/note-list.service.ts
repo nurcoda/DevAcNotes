@@ -12,7 +12,7 @@ export class NoteListService {
   normalNotes: Note[] = [];
 
   unsubList;
-  unsubSingle;
+  // unsubSingle;
 
   items$;
   items;
@@ -22,14 +22,15 @@ export class NoteListService {
   constructor() {
     this.unsubList = onSnapshot(this.getNotesRef(), (list) => {
       list.forEach(element => {
-        console.log(element);
+        console.log(this.setNoteObject(element.data(), element.id));
       });
     });
 
-    this.unsubSingle = onSnapshot(this.getsingleDocRef("notes", "ji2r0trkkiC4KVgMr5Yr"), (element) => {
-    });
+    // this.unsubSingle = onSnapshot(this.getsingleDocRef("notes", "ji2r0trkkiC4KVgMr5Yr"), (element) => {
+    // });
 
-    this.unsubSingle();
+    // this.unsubSingle();
+
 
     this.items$ = collectionData(this.getNotesRef());
     this.items = this.items$.subscribe((list) => {
@@ -37,6 +38,10 @@ export class NoteListService {
         console.log(element);
       });
     })
+  }
+
+  ngonDestroy() {
+    this.unsubList();
     this.items.unsubscribe();
   }
 
@@ -46,6 +51,16 @@ export class NoteListService {
 
   getTrashRef() {
     return collection(this.firestore, 'trash');
+  }
+
+  setNoteObject(obj: any, id: string): Note {
+    return {
+      id: id || "",
+      type: obj.type || "note",
+      title: obj.title || "",
+      content: obj.content || "",
+      marked: obj.marked || false,
+    }
   }
 
   getsingleDocRef(colId: string, docId: string) {
