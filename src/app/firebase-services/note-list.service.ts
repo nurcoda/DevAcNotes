@@ -12,10 +12,6 @@ export class NoteListService {
   normalNotes: Note[] = [];
 
   unsubList;
-  // unsubSingle;
-
-  items$;
-  items;
 
   firestore: Firestore = inject(Firestore);
 
@@ -26,23 +22,12 @@ export class NoteListService {
       });
     });
 
-    // this.unsubSingle = onSnapshot(this.getsingleDocRef("notes", "ji2r0trkkiC4KVgMr5Yr"), (element) => {
-    // });
 
-    // this.unsubSingle();
-
-
-    this.items$ = collectionData(this.getNotesRef());
-    this.items = this.items$.subscribe((list) => {
-      list.forEach(element => {
-        console.log(element);
-      });
-    })
   }
 
   ngonDestroy() {
     this.unsubList();
-    this.items.unsubscribe();
+
   }
 
   getNotesRef() {
