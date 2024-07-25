@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "devacnotes": {
+      "hosting": {
+        "danotes": [
+          "devacnotes"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "devacnotes"
+  }
+}
