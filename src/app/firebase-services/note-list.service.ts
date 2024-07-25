@@ -11,9 +11,12 @@ export class NoteListService {
   trashNotes: Note[] = [];
   normalNotes: Note[] = [];
 
+  items$;
   firestore: Firestore = inject(Firestore);
 
-  constructor() { }
+  constructor() {
+    this.items$ = collectionData(this.getNotesRef());
+  }
 
   getNotesRef() {
     return collection(this.firestore, 'notes');
