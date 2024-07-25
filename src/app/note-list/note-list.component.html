@@ -140,7 +140,7 @@
             </li>
             }
         </ul> -->
-        @for (note of noteList; track note) {
+        @for (note of getList(); track note) {
         <app-note [note]="note"></app-note>
         }
     </div>

@@ -19,16 +19,20 @@ export class NoteListComponent {
   favFilter: "all" | "fav" = "all";
   status: "notes" | "trash" = "notes";
 
-  constructor(public noteService: NoteListService) {
+  constructor(private noteService: NoteListService) {
     this.noteList = this.getDummyData()
   }
 
-  changeFavFilter(filter:"all" | "fav"){
+  getList(): Note[] {
+    return this.noteService.normalNotes;
+  }
+
+  changeFavFilter(filter: "all" | "fav") {
     this.favFilter = filter;
   }
 
-  changeTrashStatus(){
-    if(this.status == "trash"){
+  changeTrashStatus() {
+    if (this.status == "trash") {
       this.status = "notes";
     } else {
       this.status = "trash";

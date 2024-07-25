@@ -11,23 +11,37 @@ export class NoteListService {
   trashNotes: Note[] = [];
   normalNotes: Note[] = [];
 
-  unsubList;
+  unsubTrash;
+  unsubNotes;
 
   firestore: Firestore = inject(Firestore);
 
   constructor() {
-    this.unsubList = onSnapshot(this.getNotesRef(), (list) => {
-      list.forEach(element => {
-        console.log(this.setNoteObject(element.data(), element.id));
-      });
-    });
-
-
+    this.unsubNotes = this.subNotesList();
+    this.unsubTrash = this.subTrashList();
   }
 
   ngonDestroy() {
-    this.unsubList();
+    this.unsubNotes();
+    this.unsubTrash();
+  }
 
+  subTrashList() {
+    return onSnapshot(this.getNotesRef(), (list) => {
+      this.trashNotes = [];
+      list.forEach(element => {
+        this.trashNotes.push(this.setNoteObject(element.data(), element.id));
+      });
+    });
+  }
+
+  subNotesList() {
+    return onSnapshot(this.getTrashRef(), (list) => {
+      this.normalNotes = [];
+      list.forEach(element => {
+        this.normalNotes.push(this.setNoteObject(element.data(), element.id));
+      });
+    });
   }
 
   getNotesRef() {
