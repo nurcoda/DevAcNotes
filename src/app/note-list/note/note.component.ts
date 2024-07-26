@@ -39,7 +39,13 @@ export class NoteComponent {
   }
 
   moveToTrash() {
-    this.note.type = 'trash';
+    if (this.note.id) {
+      this.note.type = 'note';
+      let docId = this.note.id;
+      delete this.note.id;
+      this.noteService.addNote(this.note, 'notes');
+      this.noteService.deleteNote('trash', docId);
+    }
   }
 
   moveToNotes() {
@@ -47,9 +53,9 @@ export class NoteComponent {
   }
 
   deleteNote() {
-    // if (this.note.id) {
-    //   this.noteService.deleteNote('trash', this.note.id);
-    // }
+    if (this.note.id) {
+      this.noteService.deleteNote('trash', this.note.id);
+    }
   }
 
   saveNote() {
