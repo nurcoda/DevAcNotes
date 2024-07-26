@@ -20,12 +20,21 @@ export class NoteListComponent {
   status: "notes" | "trash" = "notes";
 
   constructor(private noteService: NoteListService) {
-    this.noteList = this.getDummyData()
   }
 
+  // getList(): Note[] {
+  //   return this.noteService.normalNotes;
+  // }
+
   getList(): Note[] {
-    return this.noteService.normalNotes;
+    if (this.status == 'notes') {
+      return this.noteService.normalNotes;
+    } else {
+      return this.noteService.trashNotes;
+    }
   }
+
+
 
   changeFavFilter(filter: "all" | "fav") {
     this.favFilter = filter;
@@ -38,48 +47,6 @@ export class NoteListComponent {
       this.status = "trash";
       this.favFilter = "all";
     }
-  }
-
-
-
-
-  getDummyData(): Note[] {
-    return [
-      {
-        id: "21sasd561dd4sdf",
-        type: "note",
-        title: "Block, Inline, and Inline-Block",
-        content: "https://www.youtube.com/watch?v=x_i2gga-sYg",
-        marked: true,
-      },
-      {
-        id: "25sd4f561w54sdf",
-        type: "note",
-        title: "css selector",
-        content: `kind p > b   (direktes kind) 
-        nachfahren p b  (alle nachfahren)
-        geschwister p ~ b (auf gleicher ebene ist VOR dem p ein b)`,
-        marked: true,
-      },
-      {
-        id: "54a4s6d546ff",
-        type: "note",
-        title: "aufräumen",
-        content: "Wohnzimmer saugen",
-        marked: false,
-      },
-      {
-        id: "2a35s4d654a6s4d",
-        type: "note",
-        title: "links",
-        content: `Reihenfolge: a:visited 
-        a:focus 
-        a:hover 
-        a:active
-        merkspruch: LoVe HAte`,
-        marked: true,
-      }
-    ];
   }
 
 }
