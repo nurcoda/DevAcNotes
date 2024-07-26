@@ -15,6 +15,7 @@ export class AddNoteDialogComponent {
   @Output() addDialogClosed: EventEmitter<boolean> = new EventEmitter();
   title = "";
   description = "";
+  content = "";
 
   constructor(public noteService: NoteListService) { }  // evtl. och auf private umstellen
 
