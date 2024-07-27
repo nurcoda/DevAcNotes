@@ -10,7 +10,7 @@ import { NoteComponent } from './note/note.component';
 @Component({
   selector: 'app-note-list',
   standalone: true,
-  imports: [FormsModule, CommonModule, NoteComponent],
+  imports: [FormsModule, CommonModule, NoteComponent,],
   templateUrl: './note-list.component.html',
   styleUrl: './note-list.component.scss'
 })
@@ -26,13 +26,28 @@ export class NoteListComponent {
   //   return this.noteService.normalNotes;
   // }
 
+  // getList(): Note[] {
+  //   if (this.status == 'notes') {
+  //   if(this.favFilter == 'all') {
+  //     return this.noteService.normalNotes;}
+  //     else {this.noteService.normalMarkedNotes;}
+  //   } else if (this.status == 'trash') {
+  //     return this.noteService.trashNotes;
+  //   }
+  // }
+
   getList(): Note[] {
-    if (this.status == 'trash') {
-      return this.noteService.normalNotes;
-    } else {
+    if (this.status == 'notes') {
+      if (this.favFilter == 'all') {
+        return this.noteService.normalNotes;
+      } else {
+        return this.noteService.normalMarkedNotes;
+      }
+    } else if (this.status == 'trash') {
       return this.noteService.trashNotes;
     }
   }
+
 
 
 
